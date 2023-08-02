@@ -1,0 +1,47 @@
+
+body{
+    background-image: url("assets/image/crypto-background.jpg");
+    min-height: 500px;
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+
+#logoWebImg{
+    width: 45px;
+};
+
+/* .parallax {
+    background-image: url("assets/image/crypto-background.jpg");
+    height: 100%;
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  } */
+
+  .card{
+    width: 300px;
+    display: inline-block;
+  }
+
+  #mainContent{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding-top: 20px;
+    gap: 10px;
+    align-items: baseline;
+}
+
+.card.card-body-data{
+    border: none;
+    width: 150px;
+}
+
+.collapse{
+    text-align: center;
+}
+
