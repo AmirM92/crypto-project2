@@ -1,6 +1,4 @@
-
-
-
+"use strict";
 $(() => {
 
     getAndDisplayCurrencies();
@@ -13,10 +11,8 @@ $(() => {
     const searchNavbar = document.getElementById("searchNavbar");
     const moreCoinDataArr = [];
 
-    const selectedCryptoCard = [];
-    const selectedCryptoCardModal = document.getElementById("modalCoin");
-    const myModalCard = new bootstrap.Modal(selectedCryptoCardModal);
-    const checkboxes = document.getElementsByClassName("toggle-one");
+    
+    const checkBox = document.getElementsByClassName("form-check-input");
 
     currenciesLink.addEventListener("click", () => {
         getAndDisplayCurrencies();
@@ -30,7 +26,24 @@ $(() => {
     }
 
     function displayAbout() {
-        mainContent.innerHTML = `<h1>About... </h1>`;
+        mainContent.innerHTML = `<h1>About Me</h1>
+        
+        <div class="card mb-3" style="max-width: 540px;">
+  <div class="row g-0">
+    <div class="col-md-4">
+      <img src="..." class="img-fluid rounded-start" alt="...">
+    </div>
+    <div class="col-md-8">
+      <div class="card-body">
+        <h5 class="card-title">Card title</h5>
+        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+        <p class="card-text"><small class="text-body-secondary">Last updated 3 mins ago</small></p>
+      </div>
+    </div>
+  </div>
+</div>
+        
+        `;
     }
 
 
@@ -54,7 +67,7 @@ $(() => {
     }
 
     //--------------------------------------------------//
-    //               Dispaly currencies                 //
+    //               Display currencies                 //
     //--------------------------------------------------//
 
     async function getAndDisplayCurrencies(filterString = '') {
@@ -166,66 +179,72 @@ $(() => {
         }
     }
 
+    // const modal = new bootstrap.Modal(`#coinModal`);
+    let modalArr = [];
+    const MAX_SELECTED_COINS = 5;
+    let modal;
 
-    $(".toggleBox").on("click", function () {
-        if (this.checked === true) {
-            selectedCryptoCard.push(this.value);
-        }
-        if (this.checked === false) {
-            let uncheck = this.value;
-            const indexUncheck = selectedCryptoCard.findIndex((name) => name === uncheck);
-            selectedCryptoCard.splice(indexUncheck, 1);
-        }
-        if (selectedCryptoCard.length > 5) {
-            myModalCard.show();
-        }
-
-        const cardInTheModal = document.getElementById("cardInTheModal");
-        let htmlMOdal = "";
-        for (let i = 0; i < selectedCryptoCard.length - 1; i++) {
-            htmlMOdal += `
-            <div class="card">
-            <div class="card-body cardModal">
-              <span class="nameSelectCard">${selectedCryptoCard[i]}</span>
-              <span class="btn-toggle selected-toggle">
-              <input class="toggle-one ee" data-bs-dismiss="modal" type="checkbox" name="modalCheckBox" value="${selectedCryptoCard[i]}" id="checkModalCard${i}">
-              <label class="toggle" for="checkModalCard${i}"></label>
-            </span>
-            </div>
-          </div>`;
-        }
-        cardInTheModal.innerHTML = htmlMOdal;
-
-        const modalCheckBox = document.getElementsByName("modalCheckBox");
-        const checkboxes = document.getElementsByClassName("toggle-one");
-        for (const checkModalCard of modalCheckBox) {
-            checkModalCard.checked = true;
-            checkModalCard.addEventListener("click", function () {
-                if (checkModalCard.checked === false) {
-                    for (const shutDown of checkboxes) {
-                        if (shutDown.value === checkboxes.value) {
-                            shutDown.checked = false;
-                        }
-                    }
-                    const indexUncheck = selectedCryptoCard.findIndex((name) => name === checkModalCard.value);
-                    selectedCryptoCard.splice(indexUncheck, 1);
-                }
-            });
+    $("#mainContent").on("click", ".form-check-input", function () {
+        const cardId = $(this).closest(".card").find(".more-data-btn").attr("id");
+        console.log(`card id :${cardId}`);
+        const index = modalArr.indexOf(cardId);
+        if (index !== -1) {
+            modalArr.splice(index, 1);
+            $(`#${cardId}_modalSwitch`).prop("checked", false);
+        } else {
+            // Check if the maximum allowed coins have been selected
+            if (modalArr.length >= MAX_SELECTED_COINS) {
+                showModal(); // Show the modal when trying to select more than the allowed number of coins
+                return;
+            }
+            modalArr.push(cardId);
+            $(`#${cardId}_modalSwitch`).prop("checked", true);
         }
     });
-
-    const closeModal = document.getElementById("closeModal");
-    closeModal.addEventListener("click", () => {
-        const lastCard = selectedCryptoCard[selectedCryptoCard.length - 1];
-        for(const crypto of checkboxes) {
-            if(crypto.value === lastCard){
-                crypto.checked = false;
+    
+    console.log(moreCoinDataArr);
+    function showModal() {
+        const selectedCardsData = [];
+        for (const id of modalArr) {
+            const coinData = moreCoinDataArr.find(coin => coin.id === id);
+            if (coinData) {
+                selectedCardsData.push(coinData);
             }
         }
-        const indexCard = selectedCryptoCard.findIndex(crypto => crypto === lastCard);
-        selectedCryptoCard.splice(indexCard, 1);
-    })
-
+    
+        let modalHtml = "";
+        for (const data of selectedCardsData) {
+            modalHtml += `
+                <div class="card">
+                    <h5 class="card-header">${data.symbol}</h5>
+                    <div class="logo-title">
+                        <!-- logo -->
+                        <img src="${data.image}" class="modal-logo" alt="my-logo" width="20%">
+                        <br></br>
+                        <h5 class="card-title">${data.name}</h5>
+                    </div>
+                    <!-- Switch box -->
+                    <div class="form-check form-switch">
+                        <input class="form-check-input-modal" type="checkbox" role="switch" id="${data.id}_modalSwitch">
+                    </div>
+                </div>
+            `;
+        }
+    
+        modal = new bootstrap.Modal(document.getElementById("coinModal"));
+        modal.show();
+        
+        // Now insert the modalHtml into the modal's body
+        $(".modal-body").html(modalHtml);
+    
+        // The click event listener for the checkboxes inside the modal remains the same.
+        $(".modal-body .form-check-input-modal").on("click", function () {
+            const modalCardId = this.id.replace("_modalSwitch", "");
+            modal.hide(); 
+        });
+    }
+    
+    
 
     searchNavbar.addEventListener('keyup', (e) => {
         const searchString = e.target.value.toLowerCase();
