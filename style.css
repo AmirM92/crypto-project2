@@ -1,5 +1,4 @@
-
-body{
+body {
     background-image: url("assets/image/crypto-background.jpg");
     min-height: 500px;
     background-attachment: fixed;
@@ -8,26 +7,24 @@ body{
     background-size: cover;
 }
 
+#mainTitle{
+    color: aliceblue;
+    
+}
 
-#logoWebImg{
+#logoWebImg {
     width: 45px;
-};
+}
 
-/* .parallax {
-    background-image: url("assets/image/crypto-background.jpg");
-    height: 100%;
-    background-attachment: fixed;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-  } */
+;
 
-  .card{
+.card {
     width: 300px;
     display: inline-block;
-  }
+}
 
-  #mainContent{
+#mainContent {
+    text-align: center;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
@@ -36,12 +33,55 @@ body{
     align-items: baseline;
 }
 
-.card.card-body-data{
+.card.card-body-data {
     border: none;
     width: 150px;
 }
 
-.collapse{
+.collapse {
     text-align: center;
 }
 
+.msg-coin-not-found {
+    color: white;
+    margin: auto;
+}
+
+.about-me-card {
+    border: 5px solid;
+    padding: 5px;
+    background-color: aliceblue;
+    height: 500px;
+    width: 50%;
+    margin: auto;
+}
+
+.img-amir{
+    height: 200px;
+    width: 125px;
+    border-radius: 50%;
+    padding-top: 20px;
+}
+
+.img-face{
+    height: 50px;
+    width: 50px;
+}
+.img-git{
+    height: 50px;
+    width: 50px;
+}
+.img-linke{
+    height: 50px;
+    width: 50px;
+}
+
+.coming-soon-h2{
+    text-align: center;
+    color: aliceblue;
+}
+
+.coming-soon-web{
+margin: auto;
+
+}

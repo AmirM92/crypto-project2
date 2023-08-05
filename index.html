@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+    <link rel="icon" type="image/x-icon" href="assets/image/logo web.png">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
@@ -16,7 +16,7 @@
     <script src="jquery-3.7.0.js"></script>
     <script defer src="main.js"></script>
 
-    <title>My Project</title>
+    <title>Crypto Currencies</title>
 </head>
 
 <body class="parallax">
@@ -52,37 +52,49 @@
         </nav>
     </div>
 
-    <h1 class="text-center">Crypto Currencies</h1>
+    <h1 class="text-center" id="mainTitle" ></h1>
     <div>
         <div id="mainContent" class="container-fluid text-center ">
             
         </div>
     </div>
 
-     <!-- Modal Section -->
+     <!-- Modal -->
+  <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+  aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" id="modalClose" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 
-     <div class="modal fade bd-example-modal-lg" id="coinModal" tabindex="-1" role="dialog"
-     aria-labelledby="myLargeModalLabel" aria-hidden="true">
-     <div class="modal-dialog modal-lg">
-         <div class="modal-content">
-             <h2> You can choose only 5 coins.</h2>
-             <br>
-             <h5>Please remove one of your previous coins.</h5>
-             <hr>
-             <div class="modal-body" id="modalBody">
-                 <!-- Modal selected cards  -->
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">You can choose only 5 coins!</h1>
+        <p>Unfortunately, you can only choose 5 currencies.
+           Please mark the currency you want to exchange</p>
+      </div>
+      <div class="modal-body">
+        <div id="inModal" class="modal-body cardModal">
+          <div class="card">
+            <div class="card-body cardModal">
 
-
-
-
-
-             </div>
-         </div>
-     </div>
- </div>
-
-
-
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal" id="loadingModal" tabindex="-1" aria-labelledby="loadingModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body text-center">
+        <div class="spinner-border text-primary" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 </body>
-
 </html>
